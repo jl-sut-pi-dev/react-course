@@ -8,22 +8,35 @@
 
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
-
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
     <script type="text/babel">
+      const socksPrice = 10;
+      const tshirtPrice = 8;
+      const shippingCost = 5;
+      let total = 0;
+      const productsConst = socksPrice + 2 * tshirtPrice;
+      total = shippingCost + productsConst;
+      console.log(total);
+      const today = dayjs().format("MMMM D");
+
       const div = (
         <div>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat
-            commodi tempore, libero soluta animi ipsa quisquam esse provident
-            nostrum cupiditate omnis accusamus ad, pariatur maiores rem
-            dignissimos autem modi recusandae!
-          </p>
-          <button>hello</button>
+          <p>Cotton socks : ${10}, quantity:1</p>
+          <p>Tshirt : ${8}, quantity :2</p>
+
+          <p>Shipping cost ${shippingCost}</p>
+          <p>Price: ${total}</p>
+          <button>add to cart</button>
+          <p>Tody is {today}</p>
         </div>
       );
       const container = document.querySelector(".js-container");
-      ReactDOM.createRoot(container).render(div);
+      const root = ReactDOM.createRoot(container);
+      setInterval(() => {
+        const currentTime = dayjs().format("HH:mm:ss");
+        root.render(<p>current time : {currentTime}</p>);
+      }, 1000);
     </script>
     <script src="react-basic.js"></script>
   </body>
