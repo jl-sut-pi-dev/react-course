@@ -10,37 +10,113 @@
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
     <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
     <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
 
     <script type="text/babel">
-      function ChatInput() {
-        // Fragment(<></>)
+      function ChatInput({ chatMessages, setChatMessages }) {
+        const [inputText, setInputText] = React.useState("");
+        function sendMessage() {
+          const newChatMessages = [
+            ...chatMessages,
+            {
+              message: inputText,
+              sender: "user",
+              id: crypto.randomUUID(),
+            },
+          ];
+          setChatMessages([newChatMessages]);
+          const response = Chatbot.getResponse(inputText);
+          setChatMessages([
+            ...newChatMessages,
+            {
+              message: response,
+              sender: "robot",
+              id: crypto.randomUUID(),
+            },
+          ]);
+          setInputText("");
+        }
         return (
           <>
-            <input placeholder="Sent a message to Chatbot" size="30" />
-            <button>Send</button>
+            <input
+              placeholder="Sent a message to Chatbot"
+              onChange={(event) => {
+                setInputText(event.target.value);
+              }}
+              size="30"
+              value={inputText}
+            />
+            <button onClick={sendMessage}>Send</button>
           </>
         );
       }
+      // destructuring
+      function ChatMessage({ message, sender }) {
+        // const { message, sender } = props;
 
-      function ChatMessage(props) {
-        const { message, sender } = props;
-        if (sender === "robot") {
-          return (
-            <div>
-              <img src="robot.png" alt="" width="50" />
-              {message}
-            </div>
-          );
-        }
         return (
           <div>
+            {sender === "robot" && <img src="robot.png" width="50" />}
             {message}
-            <img src="user.png" alt="" width="50" />
+            {sender === "user" && <img src="user.png" alt="" width="50" />}
           </div>
         );
       }
       // <ChatInput/> is component syntax
       // the same with calling the function chatInput();
+
+      function ChatMessages({ chatMessages }) {
+        {
+          return (
+            <>
+              {chatMessages.map((chatMessage) => {
+                return (
+                  <ChatMessage
+                    key={chatMessage.id}
+                    message={chatMessage.message}
+                    sender={chatMessage.sender}
+                  />
+                );
+              })}
+            </>
+          );
+        }
+      }
+
+      function App() {
+        const [chatMessages, setChatMessages] = React.useState([
+          {
+            id: 1,
+            message: "hello chatbot",
+            sender: "user",
+          },
+          {
+            id: 2,
+            message: "Hello! How can I help you?",
+            sender: "robot",
+          },
+          {
+            id: 3,
+            message: "can you get me today date?",
+            sender: "user",
+          },
+          {
+            id: 4,
+            message: "Today is October 11",
+            sender: "robot",
+          },
+        ]);
+        return (
+          <div>
+            <ChatInput
+              chatMessages={chatMessages}
+              setChatMessages={setChatMessages}
+            />
+            <ChatMessages chatMessages={chatMessages} />
+          </div>
+        );
+      }
+      /*
       const app = (
         <div>
           <ChatInput />
@@ -48,10 +124,11 @@
           <ChatMessage message="Hello! How can I help you?" sender="robot" />
         </div>
       );
+      */
 
       const container = document.querySelector(".js-container");
       const root = ReactDOM.createRoot(container);
-      root.render(app);
+      root.render(<App />);
     </script>
     <script src="react-basic.js"></script>
   </body>
