@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 3 (ex)</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      function Counter({ count, setCount }) {
+        return (
+          <>
+            <button
+              onClick={() => {
+                setCount(count + 1);
+              }}
+            >
+              Clicked {count} items
+            </button>
+          </>
+        );
+      }
+
+      function Counter2({ count, setCount }) {
+        return (
+          <>
+            <button
+              onClick={() => {
+                setCount(count + 1);
+              }}
+            >
+              Clicked {count} items
+            </button>
+          </>
+        );
+      }
+
+      function App() {
+        const [count, setCount] = React.useState(0);
+        return (
+          <>
+            Hello world!
+            <Counter count={count} setCount={setCount} />
+            <Counter2 count={count} setCount={setCount} />
+            <button
+              onClick={() => {
+                setCount(0);
+              }}
+            >
+              reset
+            </button>
+          </>
+        );
+      }
+
+      // 1. Create container
+      const container = document.querySelector("#container");
+      // 2. Create root with ReactDOM
+      const root = ReactDOM.createRoot(container);
+      //3. runder App
+      root.render(<App />);
+    </script>
+  </body>
+</html>

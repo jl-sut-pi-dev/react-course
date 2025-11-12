@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      function Input() {
+        const [inputValues, setInputValues] = React.useState("");
+        return (
+          <>
+            <input
+              onChange={(e) => {
+                // console.log(e.target.value);
+                setInputValues(e.target.value);
+              }}
+              type="text"
+              value={inputValues}
+            />
+            <p>{inputValues}</p>
+            <button
+              onClick={() => {
+                setInputValues("");
+              }}
+            >
+              reset
+            </button>
+            <button
+              onClick={() => {
+                setInputValues("Jl Sut Pi");
+              }}
+            >
+              Example
+            </button>
+          </>
+        );
+      }
+      function App() {
+        return (
+          <>
+            Hello World <Input />
+          </>
+        );
+      }
+
+      // 1. Create container
+      const container = document.querySelector("#container");
+      // 2. Create root with ReactDOM
+      const root = ReactDOM.createRoot(container);
+      //3. runder App
+      root.render(<App />);
+    </script>
+  </body>
+</html>
