@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lesson-4 ex</title>
+    <style>
+      button {
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        background: rgb(24, 135, 84);
+        font-size: 15px;
+        color: white;
+      }
+      .red {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="js-container"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      function App() {
+        const [isOn, setIsOn] = React.useState(false);
+
+        return (
+          <>
+            <button
+              className={isOn ? "red" : ""}
+              onClick={() => {
+                setIsOn(isOn ? false : true);
+              }}
+            >
+              {isOn ? "Off" : "On"}
+            </button>
+          </>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("js-container")).render(
+        <App />
+      );
+    </script>
+  </body>
+</html>

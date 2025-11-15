@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>4f Clock</title>
+  </head>
+  <body>
+    <div id="js-container"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script type="text/babel">
+      function App() {
+        const [time, setTime] = React.useState(dayjs().format("HH:mm:ss"));
+
+        React.useEffect(() => {
+          setInterval(() => {
+            setTime(dayjs().format("HH:mm:ss"));
+            console.log("run code");
+          }, 1000);
+        }, []);
+
+        return <>clock: {time}</>;
+      }
+
+      ReactDOM.createRoot(document.querySelector("#js-container")).render(
+        <App />
+      );
+    </script>
+  </body>
+</html>
