@@ -26,13 +26,7 @@ function ChatMessages({ chatMessages }) {
     return (
       <div className="chat-messages-container" ref={chatMessagesRef}>
         {chatMessages.map((chatMessage) => {
-          return (
-            <ChatMessage
-              key={chatMessage.id}
-              message={chatMessage.message}
-              sender={chatMessage.sender}
-            />
-          );
+          return <ChatMessage key={chatMessage.id} chatMessage={chatMessage} />;
         })}
       </div>
     );
